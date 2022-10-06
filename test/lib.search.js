@@ -49,6 +49,28 @@ describe('Search method', () => {
   }
   );
 
+  it('should search for facebook', async () => {
+    await gplay.search({ term: 'facebook', num: 250 })
+      .then((apps) => {
+        apps.map(assertValidApp);
+        assert(apps.length > 0, 'should return at least one result');
+        assert(apps.length > 50, 'should return at least 50 results - pagination works');
+        console.log(`Number of results: ${apps.length}`);
+      });
+  }
+  );
+  
+  it('should search for forex', async () => {
+    await gplay.search({ term: 'forex', num: 250 })
+      .then((apps) => {
+        apps.map(assertValidApp);
+        assert(apps.length > 0, 'should return at least one result');
+        assert(apps.length > 10, 'should return at least 50 results - pagination works');
+        console.log(`Number of results: ${apps.length}`);
+      });
+  }
+  );
+
   it('should search for book with 250 apps', async () => {
     await gplay.search({ term: 'clash mini', num: 250 })
       .then((apps) => {
@@ -59,8 +81,8 @@ describe('Search method', () => {
   }
   );
 
-  it('should search for pre register with fullDetail', () =>
-    gplay.search({ term: 'preregister', num: 10, fullDetail: true })
+  it('should search for facebook with fullDetail', () =>
+    gplay.search({ term: 'facebook', num: 10, fullDetail: true })
       .then((apps) => apps.map(assertValidApp))).timeout(5 * 1000);
 
   it('should fetch multiple pages of distinct results', () =>
